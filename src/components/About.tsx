@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { getLandingData } from '../services/dataService';
 
 const About: React.FC = () => {
+  const data = getLandingData().about;
+
   return (
     <section id="nosotros" className="section" style={{ backgroundColor: 'var(--bg-color)' }}>
       <div className="container">
@@ -13,10 +16,10 @@ const About: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-sm font-bold" style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)' }}>
-              About Us
+              {data.sectionTitle}
             </h2>
             <h3 className="text-4xl font-semibold" style={{ marginBottom: 'var(--space-5)' }}>
-              Global vision, unquestionable technical precision.
+              {data.heading}
             </h3>
             
             <div style={{ 
@@ -32,22 +35,22 @@ const About: React.FC = () => {
               textAlign: window.innerWidth < 640 ? 'center' : 'left'
             }}>
               <img 
-                src="./ceo.png" 
-                alt="CEO Ginfra Solution" 
+                src={data.ceoImage} 
+                alt={`CEO ${data.ceoName}`} 
                 style={{ width: '150px', height: '150px', borderRadius: '8px', objectFit: 'cover', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
               <div style={{ paddingTop: 'var(--space-2)' }}>
-                <p className="font-bold text-xl" style={{ color: 'var(--text-primary)', marginBottom: 'var(--space-1)' }}>Grégoire Geiler</p>
-                <p className="text-sm font-medium" style={{ color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--space-3)' }}>Founder & CEO (Over 15 Years Exp.)</p>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)', fontStyle: 'italic', lineHeight: 1.6 }}>"MIND YOUR SAFETY. We identify problems before they occur to guarantee savings and secure results worldwide."</p>
+                <p className="font-bold text-xl" style={{ color: 'var(--text-primary)', marginBottom: 'var(--space-1)' }}>{data.ceoName}</p>
+                <p className="text-sm font-medium" style={{ color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 'var(--space-3)' }}>{data.ceoTitle}</p>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)', fontStyle: 'italic', lineHeight: 1.6 }}>{data.ceoQuote}</p>
               </div>
             </div>
 
             <p className="text-lg" style={{ color: 'var(--text-secondary)', marginBottom: 'var(--space-4)' }}>
-              We specialize in method engineering for major civil projects. We develop solutions where technical complexity demands an unprecedented level of accuracy.
+              {data.description1}
             </p>
             <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
-              Operating internationally, we integrate as a strategic partner for consortiums and construction firms, guaranteeing the physical, structural, and financial viability of the most demanding projects.
+              {data.description2}
             </p>
           </motion.div>
           
@@ -58,22 +61,18 @@ const About: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="grid sm:grid-cols-2 gap-4"
           >
-            <div style={{ backgroundColor: 'var(--card-bg)', padding: 'var(--space-6)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-              <div className="text-4xl font-bold" style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-2)' }}>9</div>
-              <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Countries</div>
-            </div>
-            <div style={{ backgroundColor: 'var(--card-bg)', padding: 'var(--space-6)', borderRadius: '8px', border: '1px solid var(--border-color)', transform: window.innerWidth < 640 ? 'none' : 'translateY(1.5rem)' }}>
-              <div className="text-4xl font-bold" style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-2)' }}>18</div>
-              <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Large-scale Projects</div>
-            </div>
-            <div style={{ backgroundColor: 'var(--card-bg)', padding: 'var(--space-6)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-              <div className="text-4xl font-bold" style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-2)' }}>+6M€</div>
-              <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Value Executed</div>
-            </div>
-            <div style={{ backgroundColor: 'var(--card-bg)', padding: 'var(--space-6)', borderRadius: '8px', border: '1px solid var(--border-color)', transform: window.innerWidth < 640 ? 'none' : 'translateY(1.5rem)' }}>
-              <div className="text-4xl font-bold" style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-2)' }}>+20</div>
-              <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Controlled Designs</div>
-            </div>
+            {data.stats.map((stat, index) => (
+              <div key={index} style={{ 
+                backgroundColor: 'var(--card-bg)', 
+                padding: 'var(--space-6)', 
+                borderRadius: '8px', 
+                border: '1px solid var(--border-color)',
+                transform: (window.innerWidth >= 640 && index % 2 !== 0) ? 'translateY(1.5rem)' : 'none'
+              }}>
+                <div className="text-4xl font-bold" style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-2)' }}>{stat.value}</div>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>
@@ -82,3 +81,4 @@ const About: React.FC = () => {
 };
 
 export default About;
+

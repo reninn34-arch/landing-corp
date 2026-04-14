@@ -1,46 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const projects = [
-  {
-    id: 1,
-    title: 'Puente Atlántico',
-    location: 'Panamá',
-    image: './project1.png'
-  },
-  {
-    id: 2,
-    title: 'Hampton Road Bridge Tunnel',
-    location: 'United States',
-    image: './project2.png'
-  },
-  {
-    id: 3,
-    title: 'Allianz Riviera',
-    location: 'Nice, France',
-    image: './project3.png'
-  },
-  {
-    id: 4,
-    title: 'Puerto Antioquia',
-    location: 'Apartadó, Colombia',
-    image: './project4.png'
-  },
-  {
-    id: 5,
-    title: 'Femern Link',
-    location: 'Denmark',
-    image: './project5.png'
-  },
-  {
-    id: 6,
-    title: 'Estadio Abdellah Moulay',
-    location: 'Rabat, Morocco',
-    image: 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&q=80&w=1000'
-  }
-];
+import { getLandingData } from '../services/dataService';
 
 const Gallery: React.FC = () => {
+  const data = getLandingData().gallery;
+
   return (
     <section id="proyectos" className="section" style={{ backgroundColor: 'var(--bg-color)' }}>
       <div className="container">
@@ -59,9 +23,9 @@ const Gallery: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-sm font-bold" style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)' }}>
-              Featured Projects
+              {data.sectionTitle}
             </h2>
-            <h3 className="text-4xl font-semibold">Executed Intellectual Work</h3>
+            <h3 className="text-4xl font-semibold">{data.heading}</h3>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -74,7 +38,7 @@ const Gallery: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projects.map((project, index) => {
+          {data.projects.map((project, index) => {
             const isFeatured = (index === 0 || index === 1);
             return (
               <motion.div

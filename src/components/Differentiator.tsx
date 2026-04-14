@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { getLandingData } from '../services/dataService';
 
 const Differentiator: React.FC = () => {
+  const data = getLandingData().differentiator;
+
   return (
     <section id="diferencial" className="section" style={{ backgroundColor: 'var(--accent-color)', color: '#fff' }}>
       <div className="container">
@@ -13,23 +16,18 @@ const Differentiator: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-sm font-bold" style={{ color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)' }}>
-              From Design to Execution
+              {data.sectionTitle}
             </h2>
             <h3 className="text-4xl font-semibold" style={{ marginBottom: 'var(--space-5)' }}>
-              What Defines Us
+              {data.heading}
             </h3>
             <p className="text-lg" style={{ color: '#d1d5db', marginBottom: 'var(--space-4)' }}>
-              We base our methodology on fully understanding your needs, ensuring maximum quality, optimizing processes, and maintaining total transparency throughout the project lifecycle.
+              {data.description}
             </p>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-              {[
-                { title: 'Listen', desc: 'Effective solutions adapted to the needs of each specific project.' },
-                { title: 'Optimization', desc: 'Fulfilment of deadlines, optimized operations and guaranteed savings.' },
-                { title: 'Trust', desc: 'Innovative tools designed using precise and reliable methods.' },
-                { title: 'Transparency', desc: 'Continuous and clear communication at every stage of the project.' },
-              ].map((item, i) => (
+              {data.items.map((item, i) => (
                 <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-3)' }}>
-                  <span style={{ color: 'var(--accent-color)', fontSize: '1.25rem', marginTop: '-2px' }}>✓</span>
+                  <span style={{ color: '#fff', fontSize: '1.25rem', marginTop: '-2px' }}>✓</span>
                   <div>
                     <span style={{ color: '#fff', fontWeight: 600 }}>{item.title}: </span>
                     <span style={{ color: '#e5e7eb' }}>{item.desc}</span>
@@ -52,11 +50,11 @@ const Differentiator: React.FC = () => {
             }}
           >
             <p className="text-xl font-medium" style={{ fontStyle: 'italic', marginBottom: 'var(--space-5)', color: '#fff', lineHeight: 1.6 }}>
-              "Our participation during the feasibility phase has consistently proven to reduce critical structural incidents to zero and optimize the project CAPEX by a substantial corporate margin."
+              {data.quote}
             </p>
             <div>
-              <div className="font-bold text-lg">Global Technical Direction</div>
-              <div className="text-sm" style={{ color: '#9ca3af' }}>International Consortiums</div>
+              <div className="font-bold text-lg">{data.quoteAuthor}</div>
+              <div className="text-sm" style={{ color: '#9ca3af' }}>{data.quoteSubtitle}</div>
             </div>
           </motion.div>
         </div>
@@ -66,3 +64,4 @@ const Differentiator: React.FC = () => {
 };
 
 export default Differentiator;
+

@@ -1,30 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { getLandingData } from '../services/dataService';
 
-const services = [
-  {
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>,
-    title: 'Constructive Methods',
-    description: 'Feasibility studies and direct on-site assistance to evaluate operations.',
-  },
-  {
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="21 16 12 22 3 16 3 8 12 2 21 8 21 16"></polygon></svg>,
-    title: 'Specific Equipment Design',
-    description: 'Basic and detailed design of customized lifting and structural equipment.',
-  },
-  {
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
-    title: 'Process Optimization',
-    description: 'Identifying bottlenecks to optimize manufacturing processes directly on site.',
-  },
-  {
-    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>,
-    title: 'Assembly & Logistics',
-    description: 'Coordination with international partners, supervision, and comprehensive personnel training.',
-  },
-];
+// Helper to map icons to service IDs
+const getServiceIcon = (id: string) => {
+  switch (id) {
+    case 'methods':
+      return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>;
+    case 'equipment':
+      return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="21 16 12 22 3 16 3 8 12 2 21 8 21 16"></polygon></svg>;
+    case 'optimization':
+      return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>;
+    case 'logistics':
+      return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
+    default:
+      return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>;
+  }
+};
 
 const Services: React.FC = () => {
+  const data = getLandingData().services;
+
   return (
     <section id="servicios" className="section" style={{ backgroundColor: '#fff' }}>
       <div className="container">
@@ -36,15 +32,15 @@ const Services: React.FC = () => {
           style={{ textAlign: 'center', marginBottom: 'var(--space-12)' }}
         >
           <h2 className="text-sm font-bold" style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 'var(--space-3)' }}>
-            Core Specialties
+            {data.sectionTitle}
           </h2>
           <h3 className="text-4xl font-semibold">
-            Method Engineering Solutions
+            {data.heading}
           </h3>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+          {data.items.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -71,7 +67,7 @@ const Services: React.FC = () => {
               }}
             >
               <div style={{ color: 'var(--accent-color)', marginBottom: 'var(--space-4)' }}>
-                {service.icon}
+                {getServiceIcon(service.id)}
               </div>
               <h4 className="text-xl font-semibold" style={{ marginBottom: 'var(--space-3)' }}>
                 {service.title}
@@ -88,3 +84,4 @@ const Services: React.FC = () => {
 };
 
 export default Services;
+

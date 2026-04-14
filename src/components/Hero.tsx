@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { getLandingData } from '../services/dataService';
 
 const StructuralCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -111,6 +112,8 @@ const StructuralCanvas: React.FC = () => {
 };
 
 const Hero: React.FC = () => {
+  const data = getLandingData().hero;
+
   return (
     <section className="hero-section">
       <div className="hero-canvas-container">
@@ -125,10 +128,10 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <h1 className="text-5xl md:text-6xl" style={{ color: 'var(--hero-text)', marginBottom: 'var(--space-4)', lineHeight: 1.1 }}>
-              From plans to implementation, we design, build and deliver
+              {data.title}
             </h1>
             <p className="text-lg md:text-xl" style={{ color: '#a3a3a3', maxWidth: '600px' }}>
-              Your ally for innovative projects. We accompany you in the development of civil infrastructure, from conception to commissioning.
+              {data.subtitle}
             </p>
           </motion.div>
           
@@ -139,10 +142,10 @@ const Hero: React.FC = () => {
             style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'nowrap' }}
           >
             <a href="#contacto" className="btn btn-white" style={{ padding: '0.75rem 1rem', fontSize: '0.85rem', fontWeight: 700, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
-              Start a Project
+              {data.ctaPrimary}
             </a>
             <a href="#proyectos" className="btn" style={{ padding: '0.75rem 1rem', fontSize: '0.85rem', fontWeight: 600, color: '#fff', border: '1px solid rgba(255,255,255,0.4)', whiteSpace: 'nowrap', flex: '0 0 auto' }}>
-              View Portfolio
+              {data.ctaSecondary}
             </a>
           </motion.div>
         </div>
@@ -152,3 +155,4 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
+
