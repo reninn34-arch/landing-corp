@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: './', // Ensures assets are loaded relatively for WordPress compatibility
   build: {
-    outDir: 'wp-theme/dist',
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].js',
